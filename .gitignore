@@ -3,6 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=django,pycharm
 
 ### Django ###
+*.idea
 *.log
 *.pot
 *.pyc
