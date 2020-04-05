@@ -5,16 +5,31 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
     <link href="{% static "css/blog.css" %}" rel="stylesheet">
+    <link href="{% static "css/bootstrap/css/bootstrap.css" %}" rel="stylesheet">
 </head>
 
 <body>
-<div id="content">
-    {% block content %}
-    {% endblock %}
-</div>
-<div id="sidebar">
-    <h2>My blog</h2>
-    <p>This is my blog.</p>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container" align="right">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ml-auto">
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container" style="padding-top: 20px">
+    <div id="content" class="row">
+        <div class="col-8">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div id="sidebar" class="col-4">
+            <h2>My blog</h2>
+            <p>This is my blog.</p>
+        </div>
+    </div>
 </div>
 </body>
 </html>
