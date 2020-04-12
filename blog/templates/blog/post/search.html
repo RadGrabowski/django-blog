@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% block title %}Search{% endblock %}
+{% block content %}
+    <div class="no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+         style="padding-left: 5%; padding-top: 2%; padding-bottom: 2%">
+
+        <h1 class="font-italic">Posts containing "{{ phrase }}"</h1>
+        <h3>Found {{ total_results }} result{{ total_results|pluralize }}</h3>
+        <br>
+        {% for post in searched_posts %}
+            <ul>
+                <li><h4><a href="{{ post.get_absolute_url }}" class="text-dark">{{ post.title }}</a></h4>
+                    {{ post.body|truncatewords:5 }}</li>
+                <br>
+            </ul>
+        {% empty %}
+            <p>There are no results for your query.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
