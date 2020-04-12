@@ -6,7 +6,9 @@
 {% block content %}
     <h1 class="display-4 pb-1 mb-4 font-italic border-bottom">Recent posts</h1>
     {% if tag %}
-        <p><h2>Posts tagged with "{{ tag.name }}"</h2><strong><a href="{% url 'blog:post_list' %}">Go back</a> </strong>
+        <p><h2>Posts tagged with "{{ tag.name }}"</h2>
+        <strong><a href="{% url 'blog:post_list' %}" class="btn btn-outline-primary"
+        >Go back</a> </strong>
         </p>
     {% endif %}
     <hr>

@@ -80,3 +80,14 @@ def post_share(request, post_id):
     else:
         form = EmailPostForm()
     return render(request, 'blog/post/share.html', {'post': post, 'form': form, 'sent': sent, 'cd': cd})
+
+
+def post_search(request):
+    if request.method == 'POST' and request.POST['phrase']:
+        phrase = request.POST['phrase']
+        searched_posts = [post for post in Post.published.all() if phrase in post.body.lower() or phrase in post.title]
+        total_results = len(searched_posts)
+        return render(request, 'blog/post/search.html',
+                      {'phrase': phrase, 'searched_posts': searched_posts, 'total_results': total_results})
+    else:
+        return redirect('blog:post_list')
