@@ -1,31 +1,41 @@
 {% extends "blog/base.html" %}
+{% load blog_tags %}
 
 {% block title %}My Blog{% endblock %}
 
 {% block content %}
-    <h1>Recent Posts</h1>
+    <h1 class="display-4 pb-1 mb-4 font-italic border-bottom">Recent posts</h1>
     {% if tag %}
-        <p><h2>Posts tagged with "{{ tag.name }}"</h2><a href="{% url 'blog:post_list' %}">Go back</a> </p>
+        <p><h2>Posts tagged with "{{ tag.name }}"</h2><strong><a href="{% url 'blog:post_list' %}">Go back</a> </strong>
+        </p>
     {% endif %}
+    <hr>
+    <div class="row mb-2">
 
-    {% for post in posts %}
-        <h2>
-            <a href="{{ post.get_absolute_url }}">
-                {{ post.title }}
-            </a>
-        </h2>
-        <p class="text-muted">Tags:
-            {% for tag in post.tags.all %}
-                <a href="{% url 'blog:post_list_by_tag' tag.slug %}">
-                    {{ tag.name }}
-                </a>
-                {% if not forloop.last %}, {% endif %}
-            {% endfor %}
-        </p>
-        <p class="date">
-            Published {{ post.publish }} by {{ post.author }}
-        </p>
-        {{ post.body|truncatewords:30|linebreaks }}
-    {% endfor %}
+        {% for post in posts %}
+            <div class="col-md-6">
+                <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+                     style="min-height: 93%">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <p class="text-muted">Tags:
+                            <strong>
+                                {% for tag in post.tags.all %}
+                                    <a href="{% url 'blog:post_list_by_tag' tag.slug %}"
+                                       class="text-primary">{{ tag.name }}</a>
+                                    {% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </strong>
+                        </p>
+                        <h3 class="mb-0">{{ post.title }}</h3>
+                        <div class="mb-1 text-muted">{{ post.publish|date:"M j" }}</div>
+                        <p class="mb-auto">{{ post.body|truncatewords_html:20|markdown }}</p>
+                        <a href="{{ post.get_absolute_url }}" class="stretched-link">Continue reading</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <hr>
+
     {% include "blog/pagination.html" with page=posts %}
 {% endblock %}

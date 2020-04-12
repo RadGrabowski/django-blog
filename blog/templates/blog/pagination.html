@@ -1,13 +1,23 @@
-<footer class="py-4 bg-light text-dark-50" style="text-align: left; padding-left: 5%">
-         <span class="text-center">
-             {% if page.has_previous %}
-                 <a href="?page={{ page.previous_page_number }}">Previous</a>
-             {% endif %}
-             <span class="text-center">
-                Page {{ page.number }} of {{ page.paginator.num_pages }}.
-             </span>
-             {% if page.has_next %}
-                 <a href="?page={{ page.next_page_number }}">Next</a>
-             {% endif %}
-         </span>
+<footer>
+    <p>
+        <nav class="blog-pagination">
+            <h6>Page {{ page.number }} of {{ page.paginator.num_pages }}</h6>
+
+            {% if page.has_previous %}
+                <a class="btn btn-outline-primary" href="?page={{ page.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% if not page.has_previous %}
+                <a class="btn btn-outline-secondary disabled" href="" tabindex="-1" aria-disabled="true">Previous</a>
+            {% endif %}
+
+            {% if page.has_next %}
+                <a class="btn btn-outline-primary" href="?page={{ page.next_page_number }}">Next</a>
+            {% endif %}
+
+            {% if not page.has_next %}
+                <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Next</a>
+            {% endif %}
+        </nav>
+    </p>
 </footer>
